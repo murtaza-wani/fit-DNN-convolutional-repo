@@ -1,0 +1,23 @@
+Simulation of the deep learning delay system.
+
+start of simulation: Sun Dec 24 12:58:08 2023
+
+
+OPTIONS:
+
+task: CIFAR-10
+method to solve the DDE (or network): dde_heun
+
+
+PARAMETERS:
+
+System Parameters:
+theta = 0.5
+alpha = -1
+
+Training Parameters:
+number_of_epochs = 10
+eta_0 = 0.001
+eta_1 = 1000
+
+RESULTS:

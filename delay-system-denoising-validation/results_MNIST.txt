@@ -1,0 +1,34 @@
+Simulation of the deep learning delay system.
+
+start of simulation: Sun Dec 24 15:54:22 2023
+
+
+OPTIONS:
+
+task: Fashion-MNIST-denoising
+method to solve the DDE (or network): dde_heun
+
+
+PARAMETERS:
+
+System Parameters:
+theta = 0.5
+alpha = -1
+
+Training Parameters:
+number_of_epochs = 1
+eta_0 = 0.01
+eta_1 = 10000
+
+RESULTS:
+
+Results for test set
+Epoch 1: Training Accuracy = 0.206344, Test Accuracy = 0.203955
+
+
+total cpu time (in seconds): 221.49
+cumulative cpu time for solving the DDE or network (in seconds): 145.229 (65.5692%)
+cumulative cpu time for backpropagation (in seconds): 51.43 (23.22%)
+residual cpu time (in seconds): 24.8308 (11.2108%)
+
+end of simulation: Sun Dec 24 15:58:05 2023
