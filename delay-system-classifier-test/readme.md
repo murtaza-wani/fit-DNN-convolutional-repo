@@ -8,23 +8,20 @@ The following adaptations have to be done before compiling the code:
 
 The program can be excecuted with the following option:
 
-| flag                                   | default value     | explanation                                                                                                                                        |
-| -------------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- 
-   |
-| -filename [filename.txt]               | filename.txt      | Sets the filename of the textfile containing the simulation results.                                                                               |
-| -task [name]                           | MNIST             | MNIST, Fashion-MNIST, CIFAR-10, CIFAR-100-coarse and SVHN are available options.                                                                   |
-| -system_simu [name]                    | dde_heun          | Choose dde_heun for simulation with delay system
-   |                                      
-| -grad_comp [name]                      | backprop_standard | Choose backprop_standard for dde_ibp
-   |
-| -theta [decimal number]                | 0.5               | Node separation.                                                                                                                                   |                                                                                                                                          
-| -number_of_epochs [integer number]     | 100               | Number of epochs.                                                                                                                                  |
-| -eta0 [decimal number]                 | 0.001             | learning rate eta = min(eta_0, eta_1 / step)                                                                                                       |
-| -eta1 [decimal number]                 | 1000.0            |                                                                                                                                                    |
-| -pixel_shift                           | false             | Enable random pixel shift for data augmentation.                                                                                                   |
-| -max_pixel_shift [integer number]      | 1                 | Maximum distance for pixel shift.                                                                                                                  |
-| -training_noise                        | false             | Enable noise for data augmentation.                                                                                                                |
-| -max_pixel_shift [integer number]      | 0.01              | Standard deviation of Gaussian training noise.                                                                                                     |
-| -rotation                              | false             | Enable random rotation for data augmentation. Use only for CIFAR-10.                                                                               |
-| -max_rotation_degrees [decimal number] | 15.0              | Maximum degree for rotation.                                                                                                                       |
-| -flip                                  | false             | Enable random horizontal flip for data augmentation. Use only for CIFAR-10.                                                                        |
+| flag                                   | default value     | explanation                                                                         |
+| -------------------------------------- | ----------------- | ------------------------------------------------------------------------------------ |
+| -filename [filename.txt]               | filename.txt      | Sets the filename of the textfile containing the simulation results.                  |
+| -task [name]                           | MNIST             | Available options: MNIST, Fashion-MNIST, CIFAR-10, CIFAR-100-coarse, SVHN.           |
+| -system_simu [name]                    | dde_heun          | Choose dde_heun for simulation with delay system.                                     |
+| -grad_comp [name]                      | backprop_standard | Choose backprop_standard for dde_ibp.                                                |
+| -theta [decimal number]                | 0.5               | Node separation.                                                                     |                                                                                           
+| -number_of_epochs [integer number]     | 100               | Number of epochs.                                                                    |
+| -eta0 [decimal number]                 | 0.001             | Learning rate eta = min(eta_0, eta_1 / step).                                        |
+| -eta1 [decimal number]                 | 1000.0            |                                                                                      |
+| -pixel_shift                           | false             | Enable random pixel shift for data augmentation.                                      |
+| -max_pixel_shift [integer number]      | 1                 | Maximum distance for pixel shift.                                                    |
+| -training_noise                        | false             | Enable noise for data augmentation.                                                  |
+| -max_pixel_shift [integer number]      | 0.01              | Standard deviation of Gaussian training noise.                                        |
+| -rotation                              | false             | Enable random rotation for data augmentation (Use only for CIFAR-10).                 |
+| -max_rotation_degrees [decimal number] | 15.0              | Maximum degree for rotation.                                                         |
+| -flip                                  | false             | Enable random horizontal flip for data augmentation (Use only for CIFAR-10).          |
