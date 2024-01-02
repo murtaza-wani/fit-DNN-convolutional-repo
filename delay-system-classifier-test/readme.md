@@ -9,7 +9,8 @@ The following adaptations have to be done before compiling the code:
 The program can be excecuted with the following option:
 
 | flag                                   | default value     | explanation                                                                                                                                        |
-| -------------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -------------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- 
+   |
 | -filename [filename.txt]               | filename.txt      | Sets the filename of the textfile containing the simulation results.                                                                               |
 | -task [name]                           | MNIST             | MNIST, Fashion-MNIST, CIFAR-10, CIFAR-100-coarse and SVHN are available options.                                                                   |
 | -system_simu [name]                    | dde_heun          | Choose dde_heun for simulation with delay system
