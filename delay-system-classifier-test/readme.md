@@ -13,7 +13,7 @@ The program can be excecuted with the following option:
 | -filename [filename.txt]               | filename.txt      | Sets the filename of the textfile containing the simulation results.                  |
 | -task [name]                           | MNIST             | Available options: MNIST, Fashion-MNIST, CIFAR-10, CIFAR-100-coarse, SVHN.           |
 | -system_simu [name]                    | dde_heun          | Choose dde_heun for simulation with delay system.                                     |
-| -grad_comp [name]                      | backprop_standard | Choose backprop_standard for dde_ibp.                                                |
+| -grad_comp [name]                      | backprop_standard | Choose backprop_standard for dde_heun.                                                |
 | -theta [decimal number]                | 0.5               | Node separation.                                                                     |                                                                                           
 | -number_of_epochs [integer number]     | 100               | Number of epochs.                                                                    |
 | -eta0 [decimal number]                 | 0.001             | Learning rate eta = min(eta_0, eta_1 / step).                                        |
