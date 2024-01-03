@@ -7,7 +7,7 @@ namespace globalconstants
 	// uncomment if task is MNIST or Fashion-MNIST:
 	const int M = 784;	   // number of features = number of input nodes
 	const int M_root = 28; // length =  width of the 3D Image
-	const int P = 10;	   // number of classes = number of output nodes
+	const int P = 784;	   // number of classes = number of output nodes
 	const int number_of_training_batches = 6;
 	const int first_conv_input_channels = 1; // number of channels in the input image
 	const int first_conv_output_channels = 3;
