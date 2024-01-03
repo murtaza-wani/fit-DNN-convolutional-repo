@@ -59,11 +59,11 @@ int main(int argc, char const *argv[])
 	double eta_0 = katana::getCmdOption(argv, argv + argc, "-eta0", 0.01);
 	double eta_1 = katana::getCmdOption(argv, argv + argc, "-eta1", 10000.0);				   // learning rate eta = min(eta_0, eta_1 / step)
 	bool input_noise = katana::getCmdOption_bool(argv, argv + argc, "-training_noise", true); // on-off switch for training input gaussian noise
-	double training_noise_sigma = katana::getCmdOption(argv, argv + argc, "-sigma", 0.01);
+	double training_noise_sigma = katana::getCmdOption(argv, argv + argc, "-sigma", 0.1);
 
 
 	// ... for weight initialization:
-	double initial_input_weigt_radius = sqrt(2.0 / ((double)M  + 1.0));
+	double initial_input_weigt_radius = 1.0;
 	double initial_first_hidden_weigt_radius = sqrt(2.0 / ((double)first_conv_input_channels * K * K + (double)first_conv_output_channels));
 	double initial_second_hidden_weigt_radius = sqrt(2.0 / ((double)second_conv_input_channels * K * K + (double)second_conv_output_channels));
 	double initial_output_weigt_radius = sqrt(2.0 / ((double)second_conv_output_channels * (double)M_root * (double)M_root + (double)P + 1.0));

@@ -14,7 +14,7 @@ void get_gradient_node_by_node(vec &input_weight_gradient, field<cube> &first_co
 	For the hidden weights only the gradients for the nonzero diagonals (and the bias weights) must be nonzero.
 
 	Args:
-	input_weight_gradient: reference to arma::mat of size M x (M + 1).
+	input_weight_gradient: reference to arma::vec of size M .
 						   To be filled with partial derivatives w.r.t. input weights.
 	first_conv_weight_gradient: reference to arma:field of size #first_conv_output_channels * #first_conv_input_channels * K * K
 						   To be filled with partial derivatives w.r.t. first covolutional weights
@@ -65,8 +65,6 @@ void get_gradient_node_by_node(vec &input_weight_gradient, field<cube> &first_co
 	vec deltas_third_hidden_layer(second_conv_output_channels * M_root * M_root);
 	deltas_third_hidden_layer.zeros();
 	double Delta;
-	vec Deltas_skip(second_conv_output_channels * M_root * M_root);
-	Deltas_skip.zeros();
 	double output_deltas[P];
 
 	double local_coupling = exp(alpha * theta);
