@@ -97,7 +97,6 @@ arma::mat unroll_kernel_to_weight_mat(int output_channels, int input_channels, c
 					double value = kernels(t)(s, j, l);
 					for (int i = 0; i < numRows; ++i)
 					{
-						// Assuming kernels(t)(s,j,l) gives the value at (t, s, j, l) in the kernels field
 						fully_unrolled_K(core(i, 0), core(i, 1)) = value;
 					}
 				}
@@ -269,8 +268,8 @@ void initialize_weights(vec &input_weights, field<cube> &first_conv_hidden_weigh
 	Function to initialize weigths.
 
 	Args:
-	input_weights:      reference to arma::mat of size M x (M + 1)
-						Matrix W^in. To be filled with the initial weights connecting the input layer
+	input_weights:      reference to arma::mat of size M
+						Vector W^in. To be filled with the initial weights connecting the input layer
 						to the first hidden layer (including the input bias weight).
 
 	first_conv_hidden_weights:
@@ -299,7 +298,7 @@ void initialize_weights(vec &input_weights, field<cube> &first_conv_hidden_weigh
 	*/
 
 	// initial input weights
-    	input_weights = -initial_input_weigt_radius * arma::ones<arma::vec>(M) + 2.0 * initial_input_weigt_radius * arma::randu<arma::vec>(M);
+    input_weights = initial_input_weigt_radius * arma::ones<arma::vec>(M);
 
 	// initial output weights
 	output_weights = -initial_output_weigt_radius * mat(P, second_conv_output_channels * M_root * M_root + 1, fill::ones) + 2.0 * initial_output_weigt_radius * mat(P, second_conv_output_channels * M_root * M_root + 1, fill::randu);

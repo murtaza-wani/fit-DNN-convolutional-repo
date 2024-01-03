@@ -14,7 +14,7 @@ void get_gradient_node_by_node(vec &input_weight_gradient, field<cube> &first_co
 	For the hidden weights only the gradients for the nonzero diagonals (and the bias weights) must be nonzero.
 
 	Args:
-	input_weight_gradient: reference to arma::mat of size M x (M + 1).
+	input_weight_gradient: reference to arma::vec of size M.
 						   To be filled with partial derivatives w.r.t. input weights.
 	first_conv_weight_gradient: reference to arma:field of size #first_conv_output_channels * #first_conv_input_channels * K * K
 						   To be filled with partial derivatives w.r.t. first covolutional weights
@@ -64,9 +64,8 @@ void get_gradient_node_by_node(vec &input_weight_gradient, field<cube> &first_co
 	deltas_second_hidden_layer.zeros();
 	vec deltas_third_hidden_layer(second_conv_output_channels * M_root * M_root);
 	deltas_third_hidden_layer.zeros();
+	
 	double Delta;
-	vec Deltas_skip(second_conv_output_channels * M_root * M_root);
-	Deltas_skip.zeros();
 	double output_deltas[P];
 
 	double local_coupling = exp(alpha * theta);
@@ -88,7 +87,6 @@ void get_gradient_node_by_node(vec &input_weight_gradient, field<cube> &first_co
 	{
 		Delta += output_deltas[p] * output_weights(p, second_conv_output_channels * M_root * M_root - 1);
 	}
-	Deltas_skip(second_conv_output_channels * M_root * M_root - 1) = Delta;
 	deltas_third_hidden_layer(second_conv_output_channels * M_root * M_root - 1) = Delta * phi * f_prime_activations_third_hidden_layer(second_conv_output_channels * M_root * M_root - 1);
 	for (int n = second_conv_output_channels * M_root * M_root - 2; n >= 0; --n)
 	{
@@ -97,7 +95,6 @@ void get_gradient_node_by_node(vec &input_weight_gradient, field<cube> &first_co
 		{
 			Delta += output_deltas[p] * output_weights(p, n);
 		}
-		Deltas_skip(n) = Delta;
 		deltas_third_hidden_layer(n) = Delta * phi * f_prime_activations_third_hidden_layer(n);
 	}
 
@@ -117,10 +114,6 @@ void get_gradient_node_by_node(vec &input_weight_gradient, field<cube> &first_co
 		}
 		Delta += deltas_third_hidden_layer(i) * second_hidden_weights_mat(i, first_conv_output_channels * M_root * M_root - 1);
 	}
-	if (skip == 1)
-	{
-		Delta = Delta + Deltas_skip(second_conv_output_channels * M_root * M_root - 1);
-	} // Delta from skip connection if set to true in global constants
 
 	deltas_second_hidden_layer(first_conv_output_channels * M_root * M_root - 1) = Delta * phi * f_prime_activations_second_hidden_layer(first_conv_output_channels * M_root * M_root - 1);
 	for (int n = first_conv_output_channels * M_root * M_root - 2; n >= 0; --n)
@@ -139,10 +132,6 @@ void get_gradient_node_by_node(vec &input_weight_gradient, field<cube> &first_co
 			}
 			Delta += deltas_third_hidden_layer(i) * second_hidden_weights_mat(i, n);
 		}
-		if (skip == 1)
-		{
-			Delta = Deltas_skip(n) + Delta;
-		} // Delta from skip connection if set to true in global constants
 
 		deltas_second_hidden_layer(n) = Delta * phi * f_prime_activations_second_hidden_layer(n);
 	}
