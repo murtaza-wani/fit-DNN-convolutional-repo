@@ -1,0 +1,43 @@
+Simulation of the deep learning delay system.
+
+start of simulation: Sat Dec 16 22:33:16 2023\
+
+OPTIONS:
+
+task: MNIST
+method to solve the DDE (or network): dde_heun
+
+
+PARAMETERS:
+
+System Parameters:
+theta = 0.5
+alpha = -1
+
+Training Parameters:
+number_of_epochs = 10
+eta_0 = 0.01
+eta_1 = 10000
+
+RESULTS:
+
+Results for test set
+Epoch 1: Training Accuracy = 96.838333, Test Accuracy = 96.310000
+Epoch 2: Training Accuracy = 98.286667, Test Accuracy = 97.150000
+Epoch 3: Training Accuracy = 98.910000, Test Accuracy = 97.600000
+Epoch 4: Training Accuracy = 99.005000, Test Accuracy = 97.410000
+Epoch 5: Training Accuracy = 99.168333, Test Accuracy = 97.650000
+Epoch 6: Training Accuracy = 99.313333, Test Accuracy = 97.580000
+Epoch 7: Training Accuracy = 99.510000, Test Accuracy = 98.080000
+Epoch 8: Training Accuracy = 99.586667, Test Accuracy = 97.840000
+Epoch 9: Training Accuracy = 99.675000, Test Accuracy = 98.080000
+Epoch 10: Training Accuracy = 99.716667, Test Accuracy = 97.890000
+
+
+total cpu time (in seconds): 14835.9
+cumulative cpu time for solving the DDE or network (in seconds): 10829.9 (72.9975%)
+cumulative cpu time for backpropagation (in seconds): 2412.76 (16.2629%)
+residual cpu time (in seconds): 1593.31 (10.7395%)
+
+end of simulation: Sun Dec 17 11:56:51 2023
+
