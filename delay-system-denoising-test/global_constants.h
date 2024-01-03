@@ -12,7 +12,7 @@ namespace globalconstants
 	const int first_conv_input_channels = 1; // number of channels in the input image
 	const int first_conv_output_channels = 3;
 	const int second_conv_input_channels = 3; // same as first conv output channels
-	const int second_conv_output_channels = 3;
+	const int second_conv_output_channels = 1;
 	const int K = 3; // size of kernel
 	const int training_batch_size = 10000;
 	const int test_batch_size = 10000;
