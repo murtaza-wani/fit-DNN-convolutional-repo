@@ -1,4 +1,4 @@
-# deep-learning-delay-system
+# fit-DNN-Convolutional-repo
 
 This github provides the code used for implementing a convolutional neural network with a single neuron. 
 
