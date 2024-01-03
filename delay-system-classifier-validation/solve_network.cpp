@@ -38,8 +38,8 @@ void solve_network(vec &activations_first_hidden_layer, vec &activations_second_
 	input_data:         reference to arma::vec of length M.
 						Input vector. Contains the pixel values of an input image.
 
-	input_weights:      reference to arma::mat of size M x (M + 1)
-						Matrix W^in. Contains the weights connecting the input layer
+	input_weights:      reference to arma::vec of size M
+						Vec W^in. Contains the weights connecting the input layer to the first hidden layer
 
 	first_hidden_weights_mat: reference to arma::mat of size #first_conv_output_channels * M_root * M_root
 						Matrix containting the weights of the connecting layer 2 to layer 1
@@ -125,10 +125,6 @@ void solve_network(vec &activations_first_hidden_layer, vec &activations_second_
 			summe += second_hidden_weights_mat(n, j) * node_states_second_hidden_layer(j);
 		}
 		activations_third_hidden_layer(n) = summe;
-		if (skip == 1)
-		{
-			activations_third_hidden_layer(n) = summe + node_states_second_hidden_layer(n);
-		}
 	}
 
 	node_states_third_hidden_layer(0) = exp_factor * node_states_second_hidden_layer(first_conv_output_channels * M_root * M_root - 1) + phi * f(activations_third_hidden_layer(0));
@@ -140,7 +136,6 @@ void solve_network(vec &activations_first_hidden_layer, vec &activations_second_
 	// compute output activations
 	for (int p = 0; p < P; ++p)
 	{
-		summe = 0.0;
 		summe = output_weights(p, second_conv_output_channels * M_root * M_root); // bias weight
 		for (int n = 0; n < second_conv_output_channels * M_root * M_root; ++n)
 		{

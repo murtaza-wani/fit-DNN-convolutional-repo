@@ -269,9 +269,9 @@ void initialize_weights(vec &input_weights, field<cube> &first_conv_hidden_weigh
 	Function to initialize weigths.
 
 	Args:
-	input_weights:      reference to arma::mat of size M x (M + 1)
-						Matrix W^in. To be filled with the initial weights connecting the input layer
-						to the first hidden layer (including the input bias weight).
+	input_weights:      reference to arma::vec of size M 
+						Vec W^in. To be filled with the initial weights connecting the input layer
+						to the first hidden layer.
 
 	first_conv_hidden_weights:
 						reference to arma field of #first_conv_output_channels * #first_conv_input_channels * K * K
@@ -292,7 +292,7 @@ void initialize_weights(vec &input_weights, field<cube> &first_conv_hidden_weigh
 	output_weights:     reference to arma::mat with size P x (N + 1) (where P = 10).
 						To be filled with the initial weights connecting the last hidden layer to the output layer..
 
-	initial_input_weigt_radius:  double.
+	initial_hidden_weigt_radius: double.
 	initial_hidden_weigt_radius: double.
 	initial_output_weigt_radius: double.
 
@@ -300,10 +300,10 @@ void initialize_weights(vec &input_weights, field<cube> &first_conv_hidden_weigh
 
 	// initial input weights
         input_weights = initial_input_weigt_radius * arma::ones<arma::vec>(M);
-  //      2.0 * initial_input_weigt_radius * arma::randu<arma::vec>(M);
+
 
 	// initial output weights
-	output_weights = -initial_output_weigt_radius * mat(P, second_conv_output_channels * M_root * M_root + 1, fill::ones) + 2.0 * initial_output_weigt_radius * mat(P, second_conv_output_channels * M_root * M_root + 1, fill::randu);
+		output_weights = -initial_output_weigt_radius * mat(P, second_conv_output_channels * M_root * M_root + 1, fill::ones) + 2.0 * initial_output_weigt_radius * mat(P, second_conv_output_channels * M_root * M_root + 1, fill::randu);
 
 	// initialize convolutional hidden weights
 	// first convolutional hidden field
