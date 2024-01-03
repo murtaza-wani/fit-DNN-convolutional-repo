@@ -26,7 +26,7 @@ double uniform(double a, double b)
 // t represents the kernel number and (s,j,l) represent the coordinates of weights in a 3-dimensional kernel t. In this way (t,s,j,l) are the weights involved in
 // tranformation of one layer to next by convolution
 // K=length of kernel = width of kernel
-// M_root = length of image = width of image. We are using the assumption that length of image is same as it's width
+// M_root = width of image = height of image. We are using the assumption that width of image is same as it's height
 
 Mat<int> get_kernel_weight_locations(int t, int s, int j, int l, int K, int M_root)
 {
@@ -77,7 +77,7 @@ Mat<int> get_kernel_weight_locations(int t, int s, int j, int l, int K, int M_ro
 	return kernel_tuples;
 }
 
-// Function to return the big Sparse weight Matrix given the kernels used for tranformation in 4D arma fields, output channels, input channels and M_root= image len = img width
+// Function to return the big Sparse weight Matrix given the kernels used for tranformation in 4D arma fields, output channels, input channels and M_root= image width = img height
 
 arma::mat unroll_kernel_to_weight_mat(int output_channels, int input_channels, const arma::field<arma::cube> &kernels, int M_root)
 
@@ -300,7 +300,7 @@ void initialize_weights(vec &input_weights, field<cube> &first_conv_hidden_weigh
 	*/
 
 	// initial input weights
-    input_weights = initial_input_weigt_radius * arma::ones<arma::vec>(M);
+    input_weights = arma::ones<arma::vec>(M);
     // + 2.0 * initial_input_weigt_radius * arma::randu<arma::vec>(M);
 
 

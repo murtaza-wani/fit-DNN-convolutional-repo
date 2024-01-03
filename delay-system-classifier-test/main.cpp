@@ -36,9 +36,6 @@ int main(int argc, char const *argv[])
 	string task = katana::getCmdOption(argv, argv + argc, "-task", "MNIST");
 	// modify global_constants.h accordingly!
 
-	// print weights (and diagonals) after each training epoch to text files in weights folder
-	bool print_weights_to_file = false;
-
 	// option for system simulation
 	// "dde_heun":	semi-analytic heun method with standard trapezoidal rule
 	// "network":	solves the equivalent network equations
@@ -60,12 +57,10 @@ int main(int argc, char const *argv[])
 	// ... for the training:
 	int number_of_epochs = katana::getCmdOption(argv, argv + argc, "-number_of_epochs", 10);
 	double eta_0 = katana::getCmdOption(argv, argv + argc, "-eta0", 0.01);
-	double eta_1 = katana::getCmdOption(argv, argv + argc, "-eta1", 1000.0);				   // learning rate eta = min(eta_0, eta_1 / step)
+	double eta_1 = katana::getCmdOption(argv, argv + argc, "-eta1", 10000.0);				   // learning rate eta = min(eta_0, eta_1 / step)
 	bool input_noise = katana::getCmdOption_bool(argv, argv + argc, "-training_noise", true); // on-off switch for training input gaussian noise
 	double training_noise_sigma = katana::getCmdOption(argv, argv + argc, "-sigma", 0.01);
 
-	// dropout
-	double dropout_rate = katana::getCmdOption(argv, argv + argc, "-dropout", 0.0);
 
 	// ... for weight initialization:
 	double initial_input_weigt_radius = sqrt(2.0 / ((double)M  + 1.0));
@@ -220,30 +215,11 @@ int main(int argc, char const *argv[])
 		second_conv_hidden_weights(i) = cube(second_conv_input_channels, K, K, fill::zeros);
 	}
 
-	arma::mat first_hidden_weights_mat(first_conv_output_channels * M_root * M_root, first_conv_input_channels * M_root * M_root);
-	arma::mat second_hidden_weights_mat(second_conv_output_channels * M_root * M_root, second_conv_input_channels * M_root * M_root);
+	mat first_hidden_weights_mat(first_conv_output_channels * M_root * M_root, first_conv_input_channels * M_root * M_root);
+	mat second_hidden_weights_mat(second_conv_output_channels * M_root * M_root, second_conv_input_channels * M_root * M_root);
 
 	initialize_weights(input_weights, first_conv_hidden_weights, second_conv_hidden_weights, first_hidden_weights_mat, second_hidden_weights_mat, output_weights,
 					   initial_input_weigt_radius, initial_first_hidden_weigt_radius, initial_second_hidden_weigt_radius, initial_output_weigt_radius, false);
-	/*
-		// weights for test runs.
-		mat input_weights_scaled(first_conv_input_channels * M_root * M_root, M + 1, fill::zeros);
-		mat output_weights_scaled(P, second_conv_output_channels * M_root * M_root + 1, fill::zeros);
-
-
-		mat first_hidden_weights_mat_scaled(first_conv_output_channels * M_root * M_root, first_conv_input_channels * M_root * M_root, fill::zeros);
-		mat second_hidden_weights_mat_scaled(second_conv_output_channels * M_root * M_root, second_conv_input_channels * M_root * M_root, fill::zeros);
-
-
-
-
-		// dropout mask for weights.
-		mat input_weights_mask(first_conv_input_channels * M_root * M_root, M + 1, fill::ones);
-		mat output_weights_mask(P, second_conv_output_channels * M_root * M_root + 1, fill::ones);
-
-		mat first_hidden_weights_mat_mask(first_conv_output_channels * M_root * M_root, first_conv_input_channels * M_root * M_root, fill::ones);
-		mat second_hidden_weights_mat_mask(second_conv_output_channels * M_root * M_root, second_conv_input_channels * M_root * M_root, fill::ones);
-	*/
 
 	// ### ### ### --- STOCHASTIC GRADIENT DESCENT TRAINING --- ### ### ###
 
@@ -276,49 +252,6 @@ int main(int argc, char const *argv[])
 		for (int index : index_vector)
 		{
 			++step_index;
-			/*				if (dropout_rate != 0.0) {
-							input_weights_mask= mat(first_conv_input_channels * M_root * M_root, M + 1, fill::ones);
-							output_weights_mask= mat(P, second_conv_output_channels * M_root * M_root + 1, fill::ones);
-							first_hidden_weights_mat_mask= mat(first_conv_output_channels * M_root * M_root, first_conv_input_channels * M_root * M_root, fill::ones);
-							second_hidden_weights_mat_mask= mat(second_conv_output_channels * M_root * M_root, second_conv_input_channels * M_root * M_root, fill::ones);
-							if (dropout_rate != 0.0) {
-							for (int m = 0; m < M; ++m){
-								double random_num = uniform(0.0, 1.0);
-								if (random_num < dropout_rate){
-									for (int n = 0; n < first_conv_input_channels * M_root * M_root; ++n){
-										input_weights_mask(n, m) = 0.0;
-									}
-								}
-							}
-
-							for (int n = 0; n < first_conv_input_channels * M_root * M_root; ++n){
-									double random_num = uniform(0.0, 1.0);
-									if (random_num < dropout_rate){
-										for (int i = 0; i < first_conv_output_channels * M_root * M_root; ++i){
-											first_hidden_weights_mat_mask(i,n)=0.0;
-										}
-									}
-								}
-
-							for (int n = 0; n < first_conv_output_channels* M_root * M_root; ++n){
-									double random_num = uniform(0.0, 1.0);
-									if (random_num < dropout_rate){
-										for (int j = 0; j < second_conv_output_channels * M_root * M_root; ++j){
-											second_hidden_weights_mat_mask(j,n)=0.0;
-										}
-									}
-								}
-
-							for (int n = 0; n < second_conv_output_channels * M_root * M_root; ++n){
-									double random_num = uniform(0.0, 1.0);
-									if (random_num < dropout_rate){
-										for (int p = 0; p < P; ++p){
-											output_weights_mask(p,n)=0.0;
-										}
-									}
-								}
-							}
-							} */
 			double eta = learning_rate(epoch, step_index, eta_0, eta_1);
 
 			// select image as input
@@ -405,12 +338,7 @@ int main(int argc, char const *argv[])
 			// for output weights
 			output_weights += -eta * output_weight_gradient;
 		}
-		/*
-				input_weights_scaled = input_weights / (1.0 - dropout_rate);
-				first_hidden_weights_mat_scaled = first_hidden_weights_mat / (1.0-dropout_rate);
-				second_hidden_weights_mat_scaled = second_hidden_weights_mat / (1.0-dropout_rate);
-				output_weights_scaled = output_weights / (1.0 - dropout_rate);
-		*/
+
 		// loop to get accuracy on training set:
 		int correct_count = 0; // counter for calculating accuracy
 		for (int index = 0; index < number_of_training_batches * training_batch_size; ++index)

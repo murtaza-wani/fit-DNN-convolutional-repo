@@ -1,4 +1,3 @@
- 
 import numpy as np
 import matplotlib.pyplot as plt
 import pickle
@@ -22,9 +21,9 @@ def make_files(data_batch, img_filename, labels_filename):
                     r = img_ints[32*row + col]
                     g = img_ints[1024 + 32*row + col]
                     b = img_ints[2048 + 32*row + col]
-                    img_ints_reshaped[3*32*row + 3*col] = r
-                    img_ints_reshaped[3*32*row + 3*col + 1] = g
-                    img_ints_reshaped[3*32*row + 3*col + 2] = b
+                    img_ints_reshaped[32*row + col] = r
+                    img_ints_reshaped[1024 + 32*row + col] = g
+                    img_ints_reshaped[2048 + 32*row + col] = b
             line = ""
             for value in img_ints_reshaped:
                 hex_code = hex(value)[2:]

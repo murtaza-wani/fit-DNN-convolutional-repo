@@ -32,7 +32,7 @@ The program does neither require nor use any GPUs and runs on a single thread.
 
 # Source file details
 
-The core loop is implemented in "main.cpp". Parameters are read in from command line (that process is defined in "katana_get_params.hh"), and most of the variables are initialized in "main.cpp". Initial weights are either are randomly generated. The weights are adapted using a gradient descent algorithm.
+The core loop is implemented in "main.cpp". Parameters are read in from command line (that process is defined in "katana_get_params.hh"), and most of the variables are initialized in "main.cpp". Weights are initialized using Xavier/Glorot initializations. The weights are adapted using a gradient descent algorithm.
 
 The system can be solved for the delay-case as defined in "solve_dde.cpp", or the equivalent deep neural network can be directly simulated with the functions provided in "solve_network.cpp". 
 
@@ -42,13 +42,12 @@ The local activation function is defined in "f.h" and can be changed there.
 
 # Example of usage
 
-In the following we describe (as an example of usage) how to perform a cross validation on the MNIST training data with the following options:
+In the following we describe (as an example of usage) how to perform classification test on the MNIST training data with the following options:
 
 * number of hidden layers: L = 3,
 * node separation: theta = 0.5,
 * initial learning rate: eta_0 = 0.01, learning rate scaling factor: eta_1 = 10000,
 * noise intensity for regularization of the training images: sigma = 0.1,
-* data augmentation option: pixel jittering,
 * filename of the text file storing the results: results_MNIST.txt.
 
 Using the program with one of the other datasets (Fashion-MNIST, CIFAR-10, SVHN), for the denoising task, or for valisation on the test set works in an analogous way. One can adjust further options and parameters. A list of all options for each program version is provided in the version-specific readme file in the corresponding directory.
@@ -63,5 +62,5 @@ Using the program with one of the other datasets (Fashion-MNIST, CIFAR-10, SVHN)
 1. Compile the program using the provided makefile, i.e. open a terminal and type "make". (Depending on the configuration of your system, the makefile may need to be modified.) An executable "prog" will be created.
 1. Run the program with the desired parameters with the command "./prog -task MNIST -eta0 0.01 -eta1 10000 -input_noise -sigma 0.1 -theta 0.5 -filename results_MNIST.txt".
 
-The program will simulate the delay system and train the parameters for 100 epochs for each of the 6 cross-validation steps. The results will be stored in the text file "results_MNIST.txt".
+The program will simulate the delay system and train the parameters for 10 epochs of all the training batches. The results will be stored in the text file "results_MNIST.txt".
 

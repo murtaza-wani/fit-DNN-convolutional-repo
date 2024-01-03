@@ -1,7 +1,3 @@
 # CREDITS
 
-* Florian Stelzer developed all essential parts of this program.
-
-* André Röhm checked and tested the code thoroughly, helped to increase the usability, and wrote the larger part of the readme.
-
-* Christoph Redlich created the header file katana_get_params.hh for handling command-line options.
+* The core structure of the code was taken from the GitHub repo = "https://github.com/flori-stelzer/deep-learning-delay-system/tree/v1.0.0"

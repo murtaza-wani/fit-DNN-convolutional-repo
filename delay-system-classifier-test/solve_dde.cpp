@@ -36,8 +36,8 @@ void solve_dde_heun(vec &activations_first_hidden_layer, vec &activations_second
 	input_data:         reference to arma::vec of length M= #first_conv_input_channels * M_root * M_root
 						Input vector. Contains the pixel values of an input image.
 
-	input_weights:      reference to arma::mat of size M x (M + 1)
-						Matrix W^in. Contains the weights connecting the input layer
+	input_weights:      reference to arma::vec of size M 
+						Vec W^in. Contains the weights connecting the input layer to first hidden layer
 
 	first_hidden_weights_mat: reference to arma::mat of size #first_conv_output_channels * M_root * M_root
 						Matrix containting the weights of the connecting layer 2 to layer 1
@@ -236,10 +236,6 @@ void solve_dde_heun(vec &activations_first_hidden_layer, vec &activations_second
 		}
 		// the last a_state on a theta-interval is the activation:
 		activations_third_hidden_layer(n) = a_states_third_hidden_layer(n, N_h);
-		if (skip == 1)
-		{
-			activations_third_hidden_layer(n) = a_states_third_hidden_layer(n, N_h) + node_states_second_hidden_layer(n);
-		}
 	}
 	// get f(a):
 	fa_states_third_hidden_layer = f_matrix(a_states_third_hidden_layer);
@@ -269,7 +265,7 @@ void solve_dde_heun(vec &activations_first_hidden_layer, vec &activations_second
 	// compute output activations
 	for (int p = 0; p < P; ++p)
 	{
-		summe = 0; // bias weight
+		summe = output_weights(p, second_conv_output_channels * M_root * M_root); // bias weight
 		for (int n = 0; n < second_conv_output_channels * M_root * M_root; ++n)
 		{
 			summe += output_weights(p, n) * node_states_third_hidden_layer(n);
