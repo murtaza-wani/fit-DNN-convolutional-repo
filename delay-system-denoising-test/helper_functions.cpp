@@ -270,8 +270,8 @@ void initialize_weights(vec &input_weights, field<cube> &first_conv_hidden_weigh
 	Function to initialize weigths.
 
 	Args:
-	input_weights:      reference to arma::mat of size M x (M + 1)
-						Matrix W^in. To be filled with the initial weights connecting the input layer
+	input_weights:      reference to arma::mat of size M 
+						Vector W^in. To be filled with the initial weights connecting the input layer to the first hidden layer
 						to the first hidden layer (including the input bias weight).
 
 	first_conv_hidden_weights:
