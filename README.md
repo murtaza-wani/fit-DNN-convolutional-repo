@@ -1,6 +1,6 @@
 # fit-DNN-Convolutional-repo
 
-This github provides the code used for implementing a convolutional neural network with a single neuron. 
+In [this repository]((https://github.com/flori-stelzer/deep-learning-delay-system/tree/v1.0.0), the authors demonstrated how to implement a deep neural network using a single neuron and applied it to image classification tasks. A natural question that arises is whether a similar architecture can be extended to implement a convolutional neural network (CNN), which is known to perform better on such tasks. While there are challenges even with a basic implementation, this repository explores how such a system can be achieved.
 
 # Overview
 
